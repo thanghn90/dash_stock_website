@@ -1,0 +1,92 @@
+20230429: A bit later:
+Use dbc.DropdownMenuItem for anything that's clickable. Works by default with dbc.Table.
+For tooltip, it works with any dash component. However, it's not resizable.
+To make a html.Img scale to full width of a dbc.Col, add style={'width': '100%'} to html.Img, NOT width='100%'!!!
+
+20230429: Note about dcc.dropdown menu styling. I forgot to write this before:
+https://stackoverflow.com/questions/56402207/style-dash-components-with-dark-theme-bootstrap-css
+One additional thing: add:
+.Select-noresults {
+    background-color: #000 !important;
+}
+into the dropdown.css. This will make "no result found" black background as well.
+Found that out by using Firefox's Inspector. Note: you need to set a delay in Firefox debug console since the dropdown will close immediately after you click anywhere.
+https://discourse.mozilla.org/t/add-freeze-page-in-5-seconds-button-to-inspector/86723
+Need to type "allow pasting" into the console to be able to copy/paste commands.
+
+
+Capable of doing all what we're asking for (regarding making a webapp), in python:
+- have all UI elements (buttons, image, graph (via plotly - which looks really nice), search input box (it's an input field))
+- have "pages" similar to "routes" in flask, and the URL can be variable (e.g. /stock/VCB, /stock/AGB can be generated from a single stock.py "page", with VCB and AGB as a "variable" input agrument)
+https://dash.plotly.com/urls
+
+References based on needed components:
+- Building blocks with dash bootstrap and mantine core: Might be very useful later.
+https://dmc-dbc-building-blocks.onrender.com/
+
+- Image/logo: html.Img
+https://dash.plotly.com/dash-html-components/img
+
+- Title/text:
+html.Div('my text here')
+html.Label('text here')
+https://dash.plotly.com/tutorial
+dbc.label
+just google it, almost every single "overview" section of dash bootstraps have this "label"
+
+- Text with hyperlink:
+dcc.link
+https://dash.plotly.com/urls
+html.A('Text', href='/hyperlink')
+https://developer.mozilla.org/en-US/docs/Web/HTML/Element/a
+
+- Data table with hyperlink:
+presentation "markdown"
+https://stackoverflow.com/questions/71124080/how-do-i-render-a-hyperlink-in-a-dash-table-datatable-or-dbc-table
+https://community.plotly.com/t/maintaining-formatting-with-markdown-in-datatable/52013/2
+
+- Data table tooltip with image:
+https://dash.plotly.com/datatable/tooltips
+
+- Search box: basically an input with type "search".
+Need to construct/update dropdown menu while user are typing
+Looks like it's simply a dcc.Dropdown. "searchable" flag is true by default!
+Though, we will need to set "clearable" to false - don't want users to accidentally clear ALL the dropdown dict!
+https://dash.plotly.com/dash-core-components/dropdown
+Pay attention to Dynamic options and Components as option Label - it's totally possiblet to include images and/or bold text/string while typing in the search dropdown.
+
+- Candlestick chart:
+https://plotly.com/python/candlestick-charts/
+https://stackoverflow.com/questions/61794582/plotly-how-to-only-show-vertical-and-horizontal-line-crosshair-as-hoverinfo
+https://stackoverflow.com/questions/64817038/plotly-dash-how-to-code-interactive-callbacks-for-hover-functions-in-plotly-das
+https://plotly.com/python/bar-charts/
+https://stackoverflow.com/questions/62982784/plotly-bar-chart-change-color-based-on-positive-negative-value-python
+
+- General plot configuration (dcc.graph(config=))
+https://plotly.com/python/configuration-options/
+https://plotly.com/python/setting-graph-size/
+
+- Subplots (same or shared axis)
+https://plotly.com/python/multiple-axes/#multiple-y-axes-and-plotly-express
+https://plotly.com/python/subplots/#subplots-with-shared-xaxes
+
+- Plotly Theme:
+https://plotly.com/python/templates/
+
+- Treemap:
+https://plotly.com/python/treemaps/
+
+- adsense:
+looks like it's a bit harder than it looks. We need to modify the top part (<head> or <title>) of index_string of a dash app to invoke the adsense script.
+May need to have some html.Script section if we want to show ads in the middle of the webpage.
+https://community.plotly.com/t/how-do-i-add-adsense-snippet-to-dash-app/29699
+For adding adsense to a html:
+https://support.google.com/adsense/answer/9274516?hl=en
+
+- performance (page loading speed): mostly about pre-cached functions
+https://dash.plotly.com/performance
+
+- Make website "responsive" (i.e. mobile friendly, not to be confused with "fast")
+https://community.plotly.com/t/reorder-website-for-mobile-view/33669
+https://www.w3schools.com/html/html_responsive.asp
+https://dash-bootstrap-components.opensource.faculty.ai/docs/components/layout/
